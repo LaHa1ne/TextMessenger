@@ -1,0 +1,37 @@
+﻿@using TextMessenger.DataLayer.DTOs.UserDTOs;
+@model List<UserMainInfoDTO>
+
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+<div class="container mt-5 mb-5">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="friendList-tab" data-bs-toggle="tab" href="#friendList">Друзья</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="friendshipSenderList-tab" data-bs-toggle="tab" href="#friendshipSenderList">Заявки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="sendFriendshipRequestForm-tab" data-bs-toggle="tab" href="#sendFriendshipRequestForm">Добавить</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-2">
+        <div class="tab-pane fade show active" id="friendList">
+        </div>
+        <div class="tab-pane fade" id="friendshipSenderList">
+        </div>
+        <div class="tab-pane fade" id="sendFriendshipRequestForm">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Contacts/switchTabElement.js" asp-append-version="true"></script>
+    <script src="~/js/Contacts/deleteFriend.js" asp-append-version="true"></script>
+    <script src="~/js/Contacts/acceptFriendshipRequest.js" asp-append-version="true"></script>
+    <script src="~/js/Contacts/rejectFriendshipRequest.js" asp-append-version="true"></script>
+    <script src="~/js/Contacts/sendFriendshipRequest.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,88 @@
+﻿@using TextMessenger.DataLayer.DTOs.ChatDTOs;
+@using TextMessenger.DataLayer.Enums;
+@model ChatListAndSelectedChatDTO
+@{
+    ViewData["Title"] = "Chats";
+}
+@if (Model.SelectedChat != null)
+{
+    <div id="userId">@Model.SelectedChat.UserId</div>
+    <div id="chatId">@Model.SelectedChat.ChatId</div>
+}
+else
+{
+    <div id="userId"></div>
+    <div id="chatId"></div>
+}
+<div class="container-fluid main-chats-container">
+    <div class="row h-100">
+        <div class="col-md-3 h-100 p-0 chat-list-col">
+            <div class="chat-section personal-chat-section">
+                <div class="caption-container personal-chat-section-caption-container">
+                    Личные чаты
+                </div>
+                <div class="chat-content personal-chat-list-container">
+                    @await Html.PartialAsync("_PersonalChatListPartial", Model.ChatList.Where(c => c.Type == ChatType.Personal).ToList())
+                </div>
+            </div>
+            <div class="chat-section group-chat-section">
+                <div class="caption-container group-chat-section-caption-container">
+                    Групповые чаты
+                </div>
+                <div class="chat-content group-chat-list-container">
+                    @await Html.PartialAsync("_GroupChatListPartial", Model.ChatList.Where(c => c.Type == ChatType.Group).ToList())
+                </div>
+            </div>
+            <div class="chat-section create-chat-section">
+                <button class="btn btn-secondary open-create-chat-model-form btn-block w-100">Создать чат</button>
+            </div>
+        </div>
+        <div class="col-md-6 h-100 p-0 chat-col">
+            <div class="chat-section message-list-section">
+                <div class="caption-container message-list-section-caption-container">
+                    @if (Model.SelectedChat != null) 
+                    {
+                        @Model.SelectedChat.Name
+                    }
+                </div>
+                <div class="d-flex justify-content-center load-more-messages-container p-2">
+                    <button type="button" class="btn btn-secondary load-more-messages-button">Загрузить еще</button>
+                </div>
+                <div class="chat-content message-list-container px-4">
+                    @await Html.PartialAsync("_MessageListPartial", Model.SelectedChat)
+                </div>
+            </div>
+            <div class="chat-section input-message-section">
+                <div class="d-flex p-3">
+                    <div class="flex-grow-1">
+                        <textarea name="message_input" class="form-control" rows="1" placeholder="Сообщение"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary send-message-button">Отправить</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 h-100 p-0 chat-members-col">
+            <div class="chat-section chat-members-section">
+                <div class="caption-container chat-members-section-caption-container">
+                    Участники
+                </div>
+                <div class="chat-content chat-members-list-container">
+                    @await Html.PartialAsync("_ChatMembersListPartial", Model.SelectedChat?.ChatMembers)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="create-chat-modal-form-section">
+</div>
+
+<link rel="stylesheet" href="~/css/chats.css" asp-append-version="true" />
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/Chats/calculateMainChatsContainerHeight.js" asp-append-version="true"></script>
+    <script src="~/js/Chats/loadPage.js" asp-append-version="true"></script>
+    <script src="~/js/Chats/loadMoreMessages.js" asp-append-version="true"></script>
+    <script src="~/js/Chats/loadSelectedChat.js" asp-append-version="true"></script>
+    <script src="~/js/Chats/sendMessage.js" asp-append-version="true"></script>
+    <script src="~/js/Chats/createChat.js" asp-append-version="true"></script>
+}

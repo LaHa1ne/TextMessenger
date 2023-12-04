@@ -1,0 +1,19 @@
+﻿@using TextMessenger.DataLayer.DTOs.UserDTOs;
+@model List<UserMainInfoDTO>
+@{
+    ViewData["Title"] = "_ChatMembersListPartial";
+}
+<ul class="list-group list-group-flush chat-members-list">
+    <li class="list-group-item" name="empty_chatMember">
+        <span class="fw-bold" name="nickname"></span>
+    </li>
+    @if (Model != null)
+    {
+        foreach (var chatMember in Model)
+        {
+            <li class="list-group-item" name="@chatMember.UserId">
+                <span class="fw-bold" name="nickname">@chatMember.Nickname</span>
+            </li>
+        }
+    }
+</ul>

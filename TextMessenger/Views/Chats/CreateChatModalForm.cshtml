@@ -1,0 +1,42 @@
+﻿@model TextMessenger.Models.NewChatViewModel
+@{
+    ViewData["Title"] = "CreateChatModalForm";
+}
+<div class="modal fade" id="CreateChatModalForm" tabindex="-1" role="dialog" aria-labelledby="CreateChatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-white text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CreateChatModalLabel">Создание чата</h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="createChatForm" class="w-50" asp-controller="Chats" asp-action="CreateChat">
+                    <div asp-validation-summary="ModelOnly" class="text-danger">
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="ChatName"></label>
+                        <input class="form-control" asp-for="ChatName" />
+                        <span asp-validation-for="ChatName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SelectedFriends"></label>
+                        @for (int i=0; i<Model.FriendsIds.Count; i++)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="@Model.FriendsIds[i]" name="SelectedFriends" value="@Model.FriendsIds[i]"
+                                @(Model.SelectedFriends != null && Model.SelectedFriends.Contains(Model.FriendsIds[i]) ? "checked" : "")>
+                                <label class="form-check-label" for="@Model.FriendsIds[i]">@Model.FriendsNicknames[i]</label>
+                            </div>
+                            <input type="hidden" asp-for="FriendsIds" value="@Model.FriendsIds[i]" />
+                            <input type="hidden" asp-for="FriendsNicknames" value="@Model.FriendsNicknames[i]" />
+                        }
+                        <span asp-validation-for="SelectedFriends" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Создать</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@using TextMessenger.DataLayer.DTOs.UserDTOs;
+@model List<UserMainInfoDTO>
+@{
+    ViewData["Title"] = "FriendListPartialView";
+}
+<ul class="list-group w-50">
+    @foreach (var friend in Model)
+    {
+        <li name="@friend.UserId" class="list-group-item d-flex justify-content-between align-items-center">
+            @friend.Nickname
+            <div class="btn-group" role="group" aria-label="Управление">
+                <a href="/Chats/Chats?FriendId=@friend.UserId" class="btn btn-outline-primary" role="button">Чат</a>
+                <button type="button" class="btn btn-outline-danger delete-friend-button">
+                    Удалить
+                </button>
+            </div>
+        </li>
+    }
+</ul>
+

@@ -1,0 +1,14 @@
+﻿@model UserNicknameViewModel
+@{
+    ViewData["Title"] = "_SendFriendshipRequestFormPartial";
+}
+<form method="post" id="userNicknameForm" class="w-50" asp-controller="Contacts" asp-action="SendFriendshipRequest">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="d-flex">
+        <div class="flex-grow-1">
+            <input class="form-control" placeholder="Никнейм" asp-for="Nickname">
+            <span asp-validation-for="Nickname" class="text-danger"></span>
+        </div>
+        <button type="button" class="btn btn-primary send-friendship-request-button">Добавить</button>
+    </div>
+</form>
